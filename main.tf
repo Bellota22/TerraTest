@@ -89,15 +89,15 @@ module "elb_http" {
   tags =  var.resource_tags
 }
 
-module "ec2_instances" {
-  source = "./modules/aws-instance"
+# module "ec2_instances" {
+#   source = "./modules/aws-instance"
 
-  depends_on = [module.vpc]
+#   depends_on = [module.vpc]
 
-  instance_count     = var.instance_count
-  instance_type      = var.ec2_instance_type
-  subnet_ids         = module.vpc.private_subnets[*]
-  security_group_ids = [module.app_security_group.security_group_id]
+#   instance_count     = var.instance_count
+#   instance_type      = var.ec2_instance_type
+#   subnet_ids         = module.vpc.private_subnets[*]
+#   security_group_ids = [module.app_security_group.security_group_id]
 
-  tags =  var.resource_tags
-}
+#   tags =  var.resource_tags
+# }
