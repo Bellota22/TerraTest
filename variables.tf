@@ -90,5 +90,5 @@ variable "resource_tags" {
 variable "ec2_instance_type" {
   description = "AWS EC2 instance type."
   type        = string
-  default    = "t2.micro"
+  default    = "t3.micro"
 }
