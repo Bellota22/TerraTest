@@ -56,38 +56,38 @@ resource "random_string" "lb_id" {
   special = false
 }
 
-module "elb_http" {
-  source  = "terraform-aws-modules/elb/aws"
-  version = "4.0.1"
+# module "elb_http" {
+#   source  = "terraform-aws-modules/elb/aws"
+#   version = "4.0.1"
 
-  # Ensure load balancer name is unique
-  name = "lb-${random_string.lb_id.result}-${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
+#   # Ensure load balancer name is unique
+#   name = "lb-${random_string.lb_id.result}-${var.resource_tags["project"]}-${var.resource_tags["environment"]}"
 
-  internal = false
+#   internal = false
 
-  security_groups = [module.lb_security_group.security_group_id]
-  subnets         = module.vpc.public_subnets
+#   security_groups = [module.lb_security_group.security_group_id]
+#   subnets         = module.vpc.public_subnets
 
-  number_of_instances = length(module.ec2_instances.instance_ids)
-  instances           = module.ec2_instances.instance_ids
+#   number_of_instances = length(module.ec2_instances.instance_ids)
+#   instances           = module.ec2_instances.instance_ids
 
-  listener = [{
-    instance_port     = "80"
-    instance_protocol = "HTTP"
-    lb_port           = "80"
-    lb_protocol       = "HTTP"
-  }]
+#   listener = [{
+#     instance_port     = "80"
+#     instance_protocol = "HTTP"
+#     lb_port           = "80"
+#     lb_protocol       = "HTTP"
+#   }]
 
-  health_check = {
-    target              = "HTTP:80/index.html"
-    interval            = 10
-    healthy_threshold   = 3
-    unhealthy_threshold = 10
-    timeout             = 5
-  }
+#   health_check = {
+#     target              = "HTTP:80/index.html"
+#     interval            = 10
+#     healthy_threshold   = 3
+#     unhealthy_threshold = 10
+#     timeout             = 5
+#   }
 
-  tags =  var.resource_tags
-}
+#   tags =  var.resource_tags
+# }
 
 # module "ec2_instances" {
 #   source = "./modules/aws-instance"
